@@ -4,18 +4,15 @@ class Vista:
     def __init__(self):
         pass
 
-    def mostrar_lista(self, lista_productos):
-        """Muestra la lista de compras de forma organizada"""
-        if not lista_productos:
+    def mostrar_lista(self, pendientes, comprados):
+        """Muestra la lista de compras organizada por estado"""
+        if not pendientes and not comprados:
             print("La lista de compras está vacía.")
             return
 
         print("\n" + "="*50)
         print("         LISTA DE COMPRAS")
         print("="*50)
-
-        pendientes = [p for p in lista_productos if not p.comprado]
-        comprados = [p for p in lista_productos if p.comprado]
 
         if pendientes:
             print("\nPENDIENTES:")

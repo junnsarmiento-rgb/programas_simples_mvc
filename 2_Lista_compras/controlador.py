@@ -6,6 +6,15 @@ class Controlador:
         self.vista = Vista()
         self.lista_productos = []
 
+    # Métodos auxiliares para filtrar productos
+    def get_pendientes(self):
+        """Devuelve lista de productos pendientes"""
+        return [p for p in self.lista_productos if not p.comprado]
+
+    def get_comprados(self):
+        """Devuelve lista de productos comprados"""
+        return [p for p in self.lista_productos if p.comprado]
+
     def agregar_producto(self):
         """Agrega un nuevo producto a la lista"""
         nombre, cantidad = self.vista.pedir_datos_producto()
@@ -15,7 +24,9 @@ class Controlador:
 
     def eliminar_producto(self):
         """Elimina un producto de la lista"""
-        self.vista.mostrar_lista(self.lista_productos)
+        pendientes = self.get_pendientes()
+        comprados = self.get_comprados()
+        self.vista.mostrar_lista(pendientes, comprados)
         if not self.lista_productos:
             return
 
@@ -30,8 +41,7 @@ class Controlador:
 
     def marcar_comprado(self):
         """Marca un producto como comprado"""
-        # Mostrar solo productos pendientes
-        pendientes = [p for p in self.lista_productos if not p.comprado]
+        pendientes = self.get_pendientes()
         if not pendientes:
             print("No hay productos pendientes para marcar como comprados.")
             return
@@ -51,7 +61,9 @@ class Controlador:
 
     def mostrar_lista(self):
         """Muestra la lista de productos"""
-        self.vista.mostrar_lista(self.lista_productos)
+        pendientes = self.get_pendientes()
+        comprados = self.get_comprados()
+        self.vista.mostrar_lista(pendientes, comprados)
 
     def ejecutar(self):
         """Ejecuta el programa principal"""
